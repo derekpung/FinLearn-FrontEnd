@@ -5,6 +5,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --nav-height: 64px;
+  --neutral-shade-0: rgba(60 60 60);
+  --neutral-shade-1: rgba(100 100 100);
+  --neutral-shade-2: rgba(140 140 140);
+  --neutral-shade-3: rgba(180 180 180);
+  --neutral-shade-4: rgba(220 220 220);
+  --neutral-shade-5: rgba(240 240 240);
+  --color1: #001529;
+  --color2: #F5DA05;
 }
 
 code {

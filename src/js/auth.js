@@ -1,7 +1,7 @@
-export function authUser() {
+export async function authUser() {
   return
 }
 
-export function signOut() {
+export async function signOut() {
   return
 }

@@ -4,6 +4,7 @@ import { Button, Input, List, Typography, Checkbox, Row} from 'antd'
 function ToDoDemo() {
   const [ myList, setMyList ] = useState([])
   const [ inputState, setInputState ] = useState("")
+  const [ username, setUserName ] = useState("")
 
   const handleClick = () => {
     setMyList(l => [...l, inputState])
@@ -12,13 +13,15 @@ function ToDoDemo() {
   const handleInputChange = e => {
     setInputState(e.target.value)
   }
-  const promptUserName = () => {
-    window.prompt("What's your name?")
+  const getUserName = () => {
+    setUserName(window.prompt("What's your name?"))
   }
-  useEffect(()=> { promptUserName() }, [ ])
+
+  useEffect(()=> { getUserName() }, [])
 
   return (
     <>
+      <Typography.Title>{`Hi, ${username}`}</Typography.Title>
       <Input value={inputState} onChange={handleInputChange}/>
       <Button block type="primary" onClick={handleClick}>Add</Button>
       <List 

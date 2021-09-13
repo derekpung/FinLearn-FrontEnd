@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Button, Input, List, Typography, Checkbox, Row} from 'antd'
+import { Button, Checkbox, Input, List, Row, Typography } from 'antd'
 
 function ToDoDemo() {
   const [ myList, setMyList ] = useState([])

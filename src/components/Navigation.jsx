@@ -106,10 +106,11 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     height: 'fit-content',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    backgroundColor: alpha(theme.palette.common.black, 0.07),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.black, 0.15),
     },
+    margin: "auto",
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -144,8 +145,7 @@ const useStyles = makeStyles((theme) => ({
   },
   topBar: {
     display: "flex",
-    height: "fit-content",
-    lineHeight: "3em"
+    height: "fit-content"
   }
 }));
 
@@ -215,7 +215,10 @@ function DeskTopBar({ classes }) {
       <Divider />
       <List>
         {routeObjs.map((routeObj) => (
-          <Link key={routeObj.name} to={`${routeObj.route}`}>
+          <Link 
+            style={{ color: "inherit", textDecoration: "none" }}
+            key={routeObj.name} 
+            to={`${routeObj.route}`}>
             <ListItem button className={classes.listItem}>
               <ListItemIcon >{routeObj.icon}</ListItemIcon>
               <ListItemText primary={routeObj.name} />

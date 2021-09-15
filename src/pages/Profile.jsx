@@ -1,11 +1,12 @@
 import React from 'react';
+import Page from '@components/Page'
 
 function Profile() {
 
   return (
-    <>
-    Profile Page
-    </>
+    <Page pageTitle="Profile">
+      content
+    </Page>
   )
 }
 

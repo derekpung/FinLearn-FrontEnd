@@ -1,11 +1,12 @@
 import React from 'react';
+import Page from '@components/Page'
 
 function Consult() {
 
   return (
-    <>
-    Consult Page
-    </>
+    <Page pageTitle="Consult">
+      content
+    </Page>
   )
 }
 

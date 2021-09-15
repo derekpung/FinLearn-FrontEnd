@@ -1,11 +1,12 @@
 import React from 'react';
+import Page from '@components/Page'
 
 function Product() {
 
   return (
-    <>
-    Product Page
-    </>
+    <Page pageTitle="Products">
+      content
+    </Page>
   )
 }
 

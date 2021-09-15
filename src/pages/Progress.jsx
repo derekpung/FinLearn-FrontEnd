@@ -1,11 +1,12 @@
 import React from 'react';
+import Page from '@components/Page'
 
 function Progress() {
 
   return (
-    <>
-    Progress Page
-    </>
+    <Page pageTitle="My Courses">
+      content
+    </Page>
   )
 }
 

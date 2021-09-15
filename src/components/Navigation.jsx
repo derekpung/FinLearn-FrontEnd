@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom'
 import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { AppBar, BottomNavigation, BottomNavigationAction, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { HiChevronLeft, HiChevronRight, HiOutlineBadgeCheck, HiOutlineBookOpen, HiOutlineChatAlt2, HiOutlineMenu, HiOutlineSearch,HiOutlineUserCircle } from 'react-icons/hi'
+import { AppBar, BottomNavigation, BottomNavigationAction, Divider, Drawer, IconButton, InputBase, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@material-ui/core'
+import { alpha, makeStyles, useTheme } from '@material-ui/core/styles'
+import { HiChevronLeft, HiChevronRight, HiOutlineBadgeCheck, HiOutlineBookOpen, HiOutlineChatAlt2, HiOutlineCog, HiOutlineMenu, HiOutlineSearch, HiOutlineUserCircle, HiSearch } from 'react-icons/hi'
 import { Link } from 'react-router-dom';
 
 const drawerWidth = Math.max(window.innerWidth * 0.2, 240);
@@ -36,6 +36,9 @@ const routeObjs = [
   }
 ]
 const useStyles = makeStyles((theme) => ({
+  title: {
+    flexGrow: 1
+  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -77,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     overflowX: 'hidden',
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
+      width: theme.spacing(8) + 1,
     },
   },
   toolbar: {
@@ -96,13 +99,89 @@ const useStyles = makeStyles((theme) => ({
   navItem: {
     minWidth: 0
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+  listItemIcon: {
+    minWidth: theme.spacing(2)
   },
+  search: {
+    position: 'relative',
+    height: 'fit-content',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+  topBar: {
+    display: "flex",
+    height: "fit-content",
+    lineHeight: "3em"
+  }
 }));
 
-function DesktopNav({ classes }) {
+function SearchBar({classes}) {
+  return (
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <HiSearch />
+      </div>
+      <InputBase
+        placeholder="Search…"
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        inputProps={{ 'aria-label': 'search' }}
+      />
+    </div>
+  )
+}
+function TopBar({ classes, pathname }) {
+  return (
+    <div className={classes.topBar}>
+      <SearchBar classes={classes}/>
+      <IconButton
+        edge="end"
+        color="inherit"
+        aria-label="app settings"
+      >
+        <HiOutlineCog />
+      </IconButton>
+    </div>
+  )
+}
+
+function DeskTopBar({ classes }) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -137,8 +216,8 @@ function DesktopNav({ classes }) {
       <List>
         {routeObjs.map((routeObj) => (
           <Link key={routeObj.name} to={`${routeObj.route}`}>
-            <ListItem button >
-              <ListItemIcon>{routeObj.icon}</ListItemIcon>
+            <ListItem button className={classes.listItem}>
+              <ListItemIcon >{routeObj.icon}</ListItemIcon>
               <ListItemText primary={routeObj.name} />
             </ListItem>
           </Link>
@@ -167,9 +246,10 @@ function DesktopNav({ classes }) {
           >
             <HiOutlineMenu />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6" noWrap>
             FinLearn
           </Typography>
+          <TopBar classes={classes}/>
         </Toolbar>
       </AppBar>
       <DesktopDrawer />
@@ -206,6 +286,7 @@ export function NavigationWrapper({component}) {
     isMobile ? (
       <>
         <main>
+          <TopBar classes={classes} />
           {component()}
           <div className={classes.toolbar} />
         </main>
@@ -214,7 +295,7 @@ export function NavigationWrapper({component}) {
     )
     : (
       <>
-        <DesktopNav classes={classes}/>
+        <DeskTopBar classes={classes}/>
         <main>
           <div className={classes.toolbar} />
           {component()}

@@ -4,8 +4,9 @@ import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { AppBar, BottomNavigation, BottomNavigationAction, Divider, Drawer, IconButton, InputBase, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@material-ui/core'
 import { alpha, makeStyles, useTheme } from '@material-ui/core/styles'
-import { HiChevronLeft, HiChevronRight, HiOutlineBadgeCheck, HiOutlineBookOpen, HiOutlineChatAlt2, HiOutlineCog, HiOutlineMenu, HiOutlineSearch, HiOutlineUserCircle, HiSearch } from 'react-icons/hi'
+import { HiChevronLeft, HiChevronRight, HiOutlineBadgeCheck, HiOutlineBookOpen, HiOutlineChatAlt2, HiOutlineLogout, HiOutlineMenu, HiOutlineSearch, HiOutlineUserCircle, HiSearch } from 'react-icons/hi'
 import { Link } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const drawerWidth = Math.max(window.innerWidth * 0.2, 240);
 const routeObjs = [
@@ -167,15 +168,17 @@ function SearchBar({classes}) {
   )
 }
 function TopBar({ classes, pathname }) {
+  const { logout } = useAuth0();
   return (
     <div className={classes.topBar}>
       <SearchBar classes={classes}/>
       <IconButton
         edge="end"
         color="inherit"
-        aria-label="app settings"
+        aria-label="logout"
+        onClick={() => logout({ returnTo: process.env.REACT_APP_BASE_URL })}
       >
-        <HiOutlineCog />
+        <HiOutlineLogout />
       </IconButton>
     </div>
   )

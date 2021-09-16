@@ -30,3 +30,18 @@ code {
     flex-direction: column;
   }  
 }
+
+/* .fa-coins:before { */
+/* position: absolute; */
+/* width: 80px; */
+/* height: 80px; */
+/* left: 13px; */
+/* top: 212px; */
+/* color: red; */
+
+/* } */
+
+.sideby {
+  display:flex
+}
+

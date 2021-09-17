@@ -27,7 +27,12 @@ function Profile() {
     <h3>Achievements</h3>
 
     <section>
-      <h5>&nbsp;Financial Markets</h5>
+      <div className="sideby">
+      <h5>&nbsp;&nbsp;Financial Markets&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</h5>
+      <br /> <br />
+      <i class='fas fa-award' style={{ fontSize: "50px", color:'grey' }}></i>
+      {/* <i class='fas fa-graduation-cap' style={{ fontSize: "50px", color:'grey' }}></i> */}
+      </div>
       <Button variant="contained" className="share">Share</Button>
     </section>
     

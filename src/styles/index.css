@@ -121,14 +121,22 @@ margin: 0px 8px;
 
 section {
   /* border: lightslategrey; */
-  width: 5in;
+  width: 4in;
   height: 25in;
   background-color: lightgray;
   border-radius: 10px;
+  
 }
 
 .share {
   margin:0 auto;
-  left:2in;
+  left:1.5in;
   top: 0.5in;
+}
+
+.fa-award {
+  margin: 0 auto;
+  left:20in;
+  margin-top: 3px;
+  margin-left: 1.5in;
 }

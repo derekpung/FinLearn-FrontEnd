@@ -1,4 +1,5 @@
 import React, { useReducer, useContext, createContext } from 'react'
+import { StyledEngineProvider } from '@mui/material/styles'
 
 const AppContext = createContext()
 const userAuthInit = { credentials: null }
@@ -55,7 +56,9 @@ export function AppProvider({ children }) {
     <AppContext.Provider
       value={contextValues}
     >
-      {children}
+      <StyledEngineProvider injectFirst>
+        {children}
+      </StyledEngineProvider>
     </AppContext.Provider>
   )
 }

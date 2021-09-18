@@ -1,0 +1,116 @@
+
+.fas fa-coins {
+  font-size: 80px;
+  color: red;
+}
+
+
+/* .fa-coins:before { */
+/* position: absolute; */
+/* width: 80px; */
+/* height: 80px; */
+/* left: 13px; */
+/* top: 212px; */
+/* color: red; */
+
+/* } */
+
+.sideby {
+  display:flex
+}
+
+
+.myButton {
+	background-color:#79bbff;
+	border-radius:28px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #528ecc;
+  width: 100px;
+  
+/* additional code */
+}
+.myButton:hover {
+	background-color:#378de5;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.x, .y, .z {
+  display: inline-block;
+}
+
+.leftButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 11px 16px;
+
+  position: absolute;
+  width: 91px;
+  height: 41px;
+  left: 70px;
+  top: 314px;
+
+  background: rgba(39, 126, 255, 0.8);
+  border-radius: 20px;
+}
+
+.leftLabel {
+  position: static;
+  width: 56px;
+  height: 22px;
+  left: 12px;
+  top: calc(50% - 22px/2);
+
+  font-family: Arial;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 22px;
+  /* identical to box height, or 129% */
+
+  letter-spacing: -0.408px;
+
+  /* Label Color/Dark/Primary */
+
+  color: #FFFFFF;
+
+
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 8px;
+}
+
+section {
+  /* border: lightslategrey; */
+  width: 4in;
+  height: 25in;
+  background-color: lightgray;
+  border-radius: 10px;
+  
+}
+
+.share {
+  margin:0 auto;
+  left:1.5in;
+  top: 0.5in;
+}
+
+.fa-award {
+  margin: 0 auto;
+  left:20in;
+  margin-top: 3px;
+  margin-left: 1.5in;
+}

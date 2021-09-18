@@ -1,29 +1,38 @@
 import React from 'react';
 import Page from '@components/Page';
+import { useAuth0 } from "@auth0/auth0-react";
 import Button from '@mui/material/Button';
-import ButtonLine from '../components/ButtonLine';
-
-
-
+import ButtonGrid from '../components/ButtonGrid';
 
 function Profile() {
-  let tokens = 8.26; 
-  // define function for the tokens above
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const tokens = 8.26
+  
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+
+  const btnBehaviorGen = (label) => (
+    (event) => {
+      console.log(`clicked ${label}`)
+    }
+  )
+
   return (
+    isAuthenticated && (
     <Page pageTitle="Profile">
-      <h3>James Smith</h3>
+      <h3>{user.nickname}</h3>
+      <img src={user.picture} alt={user.name} />
       <div className="sideby">
         
       <i class='fas fa-coins' style={{ fontSize: "50px", color:'grey' }} ></i>
       <h3> LTE Tokens:{tokens}</h3>
       </div>
+    
+      <ButtonGrid 
+        labels={["Deposit", "Withdraw", "Transfer", "Stake", "Lend", "Referral"]} 
+        behaviorGenerator={btnBehaviorGen}/>
 
-    
-    <ButtonLine button1="Deposit" button2="Withdraw" button3="Transfer" message="Hello"></ButtonLine>
-    
-    
-    <ButtonLine button1="&nbsp;&nbsp;Stake&nbsp;&nbsp;" button2="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lend&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" button3="Referral" message="Hi"></ButtonLine>
-  
     <h3>Achievements</h3>
 
     <section>
@@ -35,9 +44,9 @@ function Profile() {
       </div>
       <Button variant="contained" className="share">Share</Button>
     </section>
-    
-      
+
     </Page>
+    )
   )
 }
 

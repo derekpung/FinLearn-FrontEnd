@@ -26,15 +26,26 @@ function Profile() {
   
     <h3>Achievements</h3>
 
-    <section>
+    <section className="certificate">
       <div className="sideby">
-      <h5>&nbsp;&nbsp;Financial Markets&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</h5>
-      <br /> <br />
-      <i class='fas fa-award' style={{ fontSize: "50px", color:'grey' }}></i>
+        {/* BELOW SHOULD BE RETURNED BY A FUNCTION */}
+      <h4 className="certTitle">Financial Markets</h4>
+      
+      <i class='fas fa-award' style={{ fontSize: "60px", color:'grey' }}></i>
       {/* <i class='fas fa-graduation-cap' style={{ fontSize: "50px", color:'grey' }}></i> */}
       </div>
+      <div className="sideby">
+      <i class='fas fa-school' style={{ fontSize: "24px", color:'grey' }}></i> <p className="contents">FM University</p>
+      </div>
+      <p className="contents"><span style={{fontSize:"24px", color: "grey"}}>&#10004;</span> Completed on Aug. 12, 2021</p>
+      
       <Button variant="contained" className="share">Share</Button>
+      
+      <p className="space">&nbsp;</p>
     </section>
+    <h3 className="subheading">Career</h3>
+    <p className="par">Upload your CV/Resume for career opportunities.</p>
+    <Button variant="contained" className="uploadCV" style={{width: "3in", left: "0.25in"}}><i class="fa fa-upload"></i>Upload CV</Button>
     
       
     </Page>

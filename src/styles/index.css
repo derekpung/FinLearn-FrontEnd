@@ -119,10 +119,10 @@ flex-grow: 0;
 margin: 0px 8px;
 }
 
-section {
+.certificate {
   /* border: lightslategrey; */
   width: 4in;
-  height: 25in;
+  height: 800px;
   background-color: lightgray;
   border-radius: 10px;
   
@@ -130,13 +130,58 @@ section {
 
 .share {
   margin:0 auto;
-  left:1.5in;
-  top: 0.5in;
+  left:1.45in;
+  margin-top: 0;
+  
 }
 
 .fa-award {
   margin: 0 auto;
   left:20in;
+  margin-top: 9px;
+  margin-left: 2in;
+}
+
+.certTitle{
+  margin-left: 6px;
+  margin-bottom: 0%;
+  
+}
+
+.contents {
+  font-size: small;
+  margin-left: 3px;
+  margin-top: 0px;
+  padding: 0;
+  border: 0;
+  
+  word-spacing: 0%;
+
+}
+
+.school {
+  
+  margin-bottom: 0%;
+  left: 2in;
+}
+
+
+.space {
+  font-size: 3.4px;
+}
+
+.subheading{
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  border-bottom: 0px;
+}
+
+.par {
   margin-top: 3px;
-  margin-left: 1.5in;
+  margin-bottom: 3px;
+}
+
+.shareCV {
+  width: 1 inch;
+  
 }

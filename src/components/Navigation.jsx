@@ -33,7 +33,12 @@ const routeObjs = [
     name: "Profile",
     icon: <HiOutlineUserCircle />,
     route: '/profile'
-  }
+  },
+  {
+    name: "Course",
+    icon: <HiOutlineSearch />,
+    route: '/course'
+  },
 ]
 const useStyles = makeStyles((theme) => ({
   title: {

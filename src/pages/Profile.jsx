@@ -3,6 +3,7 @@ import Page from '@components/Page';
 import { useAuth0 } from "@auth0/auth0-react";
 import Button from '@mui/material/Button';
 import ButtonGrid from '../components/ButtonGrid';
+import '@styles/Profile.css'
 
 function Profile() {
   const { user, isAuthenticated, isLoading } = useAuth0();

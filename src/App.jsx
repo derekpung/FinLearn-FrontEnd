@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './styles/App.css';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Explore from '@pages/Explore';
 import SignIn from '@pages/Signin';
 import Product from '@pages/Product';

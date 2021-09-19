@@ -4,7 +4,12 @@ function Signin() {
 
   return (
     <>
-    Signin Page
+    <body className="signin">
+  
+    
+
+
+    </body>
     </>
   )
 }

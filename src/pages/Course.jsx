@@ -19,7 +19,7 @@ function Course() {
       <p className="contents" style={{textAlign:"justified"}}>Innovate with the Next Frontier in Technology. Learn how the&nbsp;&nbsp; blockchain is leading to a paradigm shift in decentralized&nbsp;&nbsp; application programming</p>
 
       <h5 className="offered">&nbsp;&nbsp;Offered by <br/>&nbsp;&nbsp;D University</h5>
-      &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;<Button variant="contained" className="centerbutton"> Start Course</Button>
+      &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<Button variant="contained" className="centerbutton"> Start Course</Button>
       
       
       <p className="space">&nbsp;</p>
@@ -67,7 +67,8 @@ function Course() {
       <br />
       </div>
       <br />
-      &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;<Button variant="contained" className="centerButton"> Start Course</Button>
+      &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<Button variant="contained" className="centerButton"> Start Course</Button>
+      
     
       
       

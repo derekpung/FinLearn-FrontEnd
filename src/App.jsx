@@ -9,6 +9,8 @@ import Profile from '@pages/Profile';
 import Progress from '@pages/Progress';
 import Landing from '@pages/Landing';
 import Course from './pages/Course';
+import CourseVideo from './pages/CourseVideo';
+
 import { NavigationWrapper } from '@components/Navigation'
 import { authUser } from '@js/auth';
 
@@ -25,6 +27,7 @@ function App() {
         <Route path="/consult" exact component={()=><NavigationWrapper component={Consult}/>}/>
         <Route path="/profile" exact component={()=><NavigationWrapper component={Profile}/>}/>
         <Route path="/course" exact component={()=><NavigationWrapper component={Course}/>}/>
+        <Route path="/course-video" exact component={()=><NavigationWrapper component={CourseVideo}/>}/>
         <Route path="/" exact component={Landing}/>
         <Redirect to="/" />
       </Switch>

@@ -1,9 +1,8 @@
 import React from 'react';
 import Page from '@components/Page';
 import { useAuth0 } from "@auth0/auth0-react";
-import { Avatar, Button, Stack } from '@mui/material/Button';
+import { Avatar, Button, Stack } from '@mui/material';
 import ButtonGrid from '@components/ButtonGrid';
-import '@styles/Profile.css'
 
 function Profile() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -22,7 +21,6 @@ function Profile() {
   return (
     isAuthenticated && (
     <Page pageTitle="Profile" className="page" containertype="containerprofile">
-      {/* <SimpleContainer> */}
       <div className="containerprofile">
       <br />
       <div className="containerprofile">

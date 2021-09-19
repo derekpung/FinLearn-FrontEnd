@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import './styles/App.css';
+import '@styles/App.css';
+import '@styles/Custom.css'
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Explore from '@pages/Explore';
 import SignIn from '@pages/Signin';
@@ -8,8 +9,8 @@ import Consult from '@pages/Consult';
 import Profile from '@pages/Profile';
 import Progress from '@pages/Progress';
 import Landing from '@pages/Landing';
-import Course from './pages/Course';
-import CourseVideo from './pages/CourseVideo';
+import Course from '@pages/Course';
+import CourseVideo from '@pages/CourseVideo';
 
 import { NavigationWrapper } from '@components/Navigation'
 import { authUser } from '@js/auth';

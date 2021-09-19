@@ -5,10 +5,15 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+<<<<<<< HEAD
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.0.0",
     "@mui/material": "^5.0.0",
+=======
+    "@mui/material": "^5.0.0-rc.1",
+    "@auth0/auth0-react": "^1.7.0",
+>>>>>>> dev
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -19,7 +24,6 @@
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
-    "styled-components": "^5.3.1",
     "web-vitals": "^1.0.1",
     "webfontloader": "^1.6.28"
   },

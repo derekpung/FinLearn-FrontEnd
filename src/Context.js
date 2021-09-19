@@ -1,4 +1,6 @@
 import React, { useReducer, useContext, createContext } from 'react'
+import { StyledEngineProvider } from '@mui/material/styles'
+import { Auth0Provider } from '@auth0/auth0-react'
 
 const AppContext = createContext()
 const userAuthInit = { credentials: null }
@@ -55,7 +57,15 @@ export function AppProvider({ children }) {
     <AppContext.Provider
       value={contextValues}
     >
-      {children}
+      <Auth0Provider
+        domain={process.env.REACT_APP_ISSUER_BASE_URL}
+        clientId={process.env.REACT_APP_CLIENT_ID}
+        redirectUri={process.env.REACT_APP_BASE_URL+'/explore'}
+      >
+        <StyledEngineProvider injectFirst>
+          {children}
+        </StyledEngineProvider>
+      </Auth0Provider>
     </AppContext.Provider>
   )
 }

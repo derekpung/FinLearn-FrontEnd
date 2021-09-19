@@ -1,18 +1,26 @@
 import React from 'react';
 import Page from '@components/Page';
-import Button from '@mui/material/Button';
-import ButtonLine from '../components/ButtonLine';
-// import SimpleContainer from '../components/Container';
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
-
-
-
+import { useAuth0 } from "@auth0/auth0-react";
+import { Avatar, Button, Stack } from '@mui/material/Button';
+import ButtonGrid from '@components/ButtonGrid';
+import '@styles/Profile.css'
 
 function Profile() {
-  let tokens = 8.26; 
-  // define function for the tokens above
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const tokens = 8.26
+  
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+
+  const btnBehaviorGen = (label) => (
+    (event) => {
+      console.log(`clicked ${label}`)
+    }
+  )
+
   return (
+    isAuthenticated && (
     <Page pageTitle="Profile" className="page" containertype="containerprofile">
       {/* <SimpleContainer> */}
       <div className="containerprofile">
@@ -23,23 +31,18 @@ function Profile() {
       </Stack>
       </div>
       <div className="containerprofile">
-      <h3 id="james">&nbsp;&nbsp;James<br/>&nbsp;&nbsp;Smith</h3> 
-      {/* <br/>
-      <h3>Smith</h3> */}
+      <h3 id="user-nickname">{user.nickname}</h3> 
       </div>
-      
       <div className="sideby">
         
       <i class='fas fa-coins' style={{ fontSize: "50px", color:'grey' }} ></i>
       <h3> LTE Tokens:{tokens}</h3>
       </div>
+    
+      <ButtonGrid 
+        labels={["Deposit", "Withdraw", "Transfer", "Stake", "Lend", "Referral"]} 
+        behaviorGenerator={btnBehaviorGen}/>
 
-    
-    <ButtonLine button1="Deposit" button2="Withdraw" button3="Transfer" message="Hello"></ButtonLine>
-    
-    
-    <ButtonLine button1="&nbsp;&nbsp;Stake&nbsp;&nbsp;" button2="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lend&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" button3="Referral" message="Hi"></ButtonLine>
-  
     <h3>Achievements</h3>
 
     <section className="certificate">
@@ -62,10 +65,10 @@ function Profile() {
     <h3 className="subheading">Career</h3>
     <p className="par">Upload your CV/Resume for career opportunities.</p>
     <Button variant="contained" className="uploadCV" style={{width: "3in", left: "0.25in"}}><i class="fa fa-upload"></i>Upload CV</Button>
-    
-    {/* </SimpleContainer>  */}
     </div>
+
     </Page>
+    )
   )
 }
 

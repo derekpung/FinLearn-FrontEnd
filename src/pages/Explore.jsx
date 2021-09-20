@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 import Page from '@components/Page';
 import ImageGrid from '@components/ImageGrid';
 import ButtonGrid from '@components/ButtonGrid'
@@ -52,10 +53,14 @@ function Explore() {
 
   const getDbData = async () => {
     try {
-      getAllCourses().then(
+      getAllCourses()
+      .then(res => res.json)
+      .then(
         result => setTopCourses(result)
       )
-      getAllMentors().then(
+      getAllMentors()
+      .then(res => res.json)
+      .then(
         result => setTopMentors(result)
       )
     } catch (err) {
@@ -63,6 +68,12 @@ function Explore() {
     }
   }
   useEffect(() => { getDbData() }, [])
+  // const [course, setCourse] = useState([]);
+  // useEffect(()=>{
+  //   axios.get('http://localhost:3002/course/all').then((response)=>{
+  //   setCourse(response.data);
+  //   })
+  // },[])
 
   const filterTags = [
     "Finance",

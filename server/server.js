@@ -30,6 +30,44 @@ app.get('/course/all', (req, res) => {
     });
 });
 
+app.get("/user/by-uid", (req, res) => {
+  db.query(
+    `select id from user where id = '${req.query.uid}'`,
+    (errors, results) => {
+      if (errors) {
+        console.log(errors);
+        res.status(500).send("uid error occurred");
+      } else {
+        res.status(200).send(results);
+      }
+    }
+  );
+});
+
+
+app.post("/user/add", (req, res) => {
+    const id= req.body.id;
+    const name= req.body.name;
+    const email= req.body.email;
+    const signup= req.body.signup;
+    const signup_timestamp = signup.substring(0, 10) + ' ' + signup.substring(11, 19);
+    const verified= req.body.verified;
+
+    const sqlInsert = 
+        "insert into user (id,name,email,signup,verified,wallet) values (?,?,?,?,?,'0')";
+  
+    db.query(sqlInsert, [id,name,email,signup_timestamp,verified],
+        (errors, results) => {
+            if (errors) {
+                console.log(errors);
+                res.status(500).send("Some internal error occurred");
+            } else {
+                res.status(200).send("Successfully added the user");
+            }
+        }
+    );
+});
+
 app.listen(3002, () => {
     console.log("running on port 3002");
 });

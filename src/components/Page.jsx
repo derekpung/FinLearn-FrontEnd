@@ -1,15 +1,25 @@
 import React from 'react'
-import { Typography } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 
-function Page({ children, pageTitle, containertype }) {
+function Page({ children, pageTitle }) {
   return (
     <>
-    <div className={containertype}>
     <Typography variant="h4">{pageTitle}</Typography>
-    </div>
-  
     {children}
     </>
+  )
+}
+
+export function PageSection({ children, sectionTitle }) {
+  return (
+    <Stack
+      sx={{
+        margin: "1em 0"
+      }}
+    >
+      <Typography variant="h5">{sectionTitle}</Typography>
+      {children}
+    </Stack>
   )
 }
 

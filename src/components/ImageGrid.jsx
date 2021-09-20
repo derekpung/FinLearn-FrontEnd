@@ -1,36 +1,51 @@
 import * as React from 'react';
-import { IconButton, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
+import { Grid, IconButton, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
 import { HiOutlineInformationCircle } from 'react-icons/hi';
 
 function ImageGrid({ itemData, behaviorGenerator }) {
   return (
-    <ImageList sx={{ width: 500, height: 450 }}>
+    <Grid
+      container
+      rowSpacing={1}
+      columnSpacing={{ xs: 1, sm: 2 }}
+    >
       {itemData.map((item) => (
-        <ImageListItem 
+        <Grid
+          item
           key={item.title}
-          sx={{cursor: 'pointer'}}
-          onClick={behaviorGenerator(item)}
-          >
-          <img
-            src={`${item.img}?w=248&fit=crop&auto=format`}
-            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            alt={item.title}
-            loading="lazy"
-          />
-          <ImageListItemBar
-            title={item.title}
-            actionIcon={
-              <IconButton
-                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                aria-label={`info about ${item.title}`}
-              >
-                <HiOutlineInformationCircle />
-              </IconButton>
-            }
-          />
-        </ImageListItem>
+          xs={12}
+          sm={6}
+          md={3}
+        >
+          <ImageListItem 
+            style={{
+              height: "100%"
+            }}
+            sx={{
+              cursor: 'pointer'
+            }}
+            onClick={behaviorGenerator(item)}
+            >
+            <img
+              src={item.img}
+              alt={item.title}
+              loading="lazy"
+            />
+            <ImageListItemBar
+              title={item.title}
+              actionIcon={
+                <IconButton
+                  sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                  aria-label={`info about ${item.title}`}
+                >
+                  <HiOutlineInformationCircle />
+                </IconButton>
+              }
+            />
+          </ImageListItem>
+        </Grid>
       ))}
-    </ImageList>
+    </Grid> 
   );
 }
 

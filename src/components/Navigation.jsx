@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import MuiAppBar from '@mui/material/AppBar'
 import MuiDrawer from '@mui/material/Drawer'
-import { BottomNavigation, BottomNavigationAction, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
+import { BottomNavigation, BottomNavigationAction, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Toolbar, Typography } from '@mui/material'
 import { useTheme } from '@mui/material';
 import { HiChevronLeft, HiChevronRight, HiOutlineBadgeCheck, HiOutlineBookOpen, HiOutlineChatAlt2, HiOutlineCog, HiOutlineMenu, HiOutlineSearch, HiOutlineUserCircle } from 'react-icons/hi'
 import { styled } from '@mui/material/styles'
@@ -191,7 +191,7 @@ const DeskTopBar = () => {
 }
 
 const MobileNav = ({ pathname }) => (
-  <>
+  <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
   <BottomNavigation 
     showLabels
     value={pathname}>
@@ -205,7 +205,7 @@ const MobileNav = ({ pathname }) => (
       ))
     }
   </BottomNavigation>
-  </>
+  </Paper>
 )
 
 export function NavigationWrapper({component}) {

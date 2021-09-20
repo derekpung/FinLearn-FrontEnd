@@ -13,8 +13,10 @@ function ButtonLine({ labels, behaviorGenerator }) {
           label => (
             <Grid 
               key={label}
-              item>
+              item
+              >
               <Button 
+                fullWidth
                 variant="contained"
                 onClick={behaviorGenerator(label)}
               >{label}</Button>

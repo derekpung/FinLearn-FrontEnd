@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import { Box, Divider, Typography } from '@mui/material';
 import Page from '@components/Page';
 import ImageGrid from '@components/ImageGrid';
 import ButtonGrid from '@components/ButtonGrid'
+import { PageSection } from '../components/Page';
 
 const getAllCourses = async () => {
   // this function should be returning a list of top courses from our db
@@ -54,12 +56,12 @@ function Explore() {
   const getDbData = async () => {
     try {
       getAllCourses()
-      .then(res => res.json)
+      // .then(res => res.json)
       .then(
         result => setTopCourses(result)
       )
       getAllMentors()
-      .then(res => res.json)
+      // .then(res => res.json)
       .then(
         result => setTopMentors(result)
       )
@@ -92,19 +94,22 @@ function Explore() {
 
   return (
     <Page pageTitle="Explore">
-      <ButtonGrid 
-        labels={filterTags} 
-        behaviorGenerator={buttonClickBehavior}/>
-      <h3 className="subheading">Popular Courses</h3>
-      <ImageGrid 
-        itemData={ topCourses } 
-        behaviorGenerator={courseClickBehavior}/>
-      <div>
-      <h3 className="subheading explorehead">Top Mentors</h3>
-      <ImageGrid 
-        itemData={ topMentors } 
-        behaviorGenerator={mentorClickBehavior}/>
-      </div>
+      <PageSection>
+        <ButtonGrid 
+          labels={filterTags} 
+          behaviorGenerator={buttonClickBehavior}/>
+      </PageSection>
+      <Divider />
+      <PageSection sectionTitle="Popular Courses">
+        <ImageGrid 
+          itemData={ topCourses } 
+          behaviorGenerator={courseClickBehavior}/>
+      </PageSection> 
+      <PageSection sectionTitle="Top Mentors">
+        <ImageGrid 
+          itemData={ topMentors } 
+          behaviorGenerator={mentorClickBehavior}/>
+      </PageSection>
     </Page>
   )
 }

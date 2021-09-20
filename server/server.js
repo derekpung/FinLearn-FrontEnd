@@ -18,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
+// Get all courses at explore page
 app.get('/course/all', (req, res) => {
     db.query("SELECT * FROM course;", (err,result)=>{
         if(err){
@@ -30,6 +31,7 @@ app.get('/course/all', (req, res) => {
     });
 });
 
+// Get user by specific id at profile page
 app.get("/user/by-uid", (req, res) => {
   db.query(
     `select id from user where id = '${req.query.uid}'`,
@@ -44,7 +46,7 @@ app.get("/user/by-uid", (req, res) => {
   );
 });
 
-
+// Add new user at profile page
 app.post("/user/add", (req, res) => {
     const id= req.body.id;
     const name= req.body.name;
@@ -62,7 +64,80 @@ app.post("/user/add", (req, res) => {
                 console.log(errors);
                 res.status(500).send("Some internal error occurred");
             } else {
-                res.status(200).send("Successfully added the user");
+                res.status(200).send("Successfully added the new user");
+            }
+        }
+    );
+});
+
+// Add transaction after user register for the course
+app.post("/transaction/add", (req, res) => {
+    const user= req.body.user;
+    const course= req.body.course;
+
+    const sqlInsert = 
+        "insert into transaction (signup,user,course) values (now(),?,?)";
+  
+    db.query(sqlInsert, [user,course],
+        (errors, results) => {
+            if (errors) {
+                console.log(errors);
+                res.status(500).send("Some internal error occurred");
+            } else {
+                res.status(200).send("Successfully added the transaction");
+            }
+        }
+    );
+});
+
+// Get transaction completion status
+app.get("/transaction/by-uid-cid", (req, res) => {
+  db.query(
+    `select completed from transaction where user = '${req.query.uid}' and course = '${req.query.cid}'`,
+    (errors, results) => {
+      if (errors) {
+        console.log(errors);
+        res.status(500).send("Error occurred for get transaction completion");
+      } else {
+        res.status(200).send(results);
+      }
+    }
+  );
+});
+
+// Update transaction completion timestamp after passing quiz
+app.post("/transaction/update", (req, res) => {
+    const user= req.body.user;
+    const course= req.body.course;
+    const sqlUpdate = 
+        "update transaction set completed = now() where user = ? and course = ?";
+
+    db.query(sqlUpdate, [user,course],
+        (errors, results) => {
+            if (errors) {
+                console.log(errors);
+                res.status(500).send("Some internal error occurred");
+            } else {
+                res.status(200).send("Successfully updated transaction completion");
+            }
+        }
+    );
+});
+
+// Add earnings to user's wallet after passing quiz
+app.post("/user/wallet/update", (req, res) => {
+    const earnings= req.body.earnings;
+    const id= req.body.id;
+    const sqlUpdate = 
+        "update user set wallet = wallet + ? where id = ?";
+
+    db.query(sqlUpdate, [earnings,id],
+        (errors, results) => {
+            if (errors) {
+                console.log(errors);
+                res.status(500).send("Some internal error occurred");
+            } else {
+                res.status(200).send("Successfully updated user wallet");
             }
         }
     );

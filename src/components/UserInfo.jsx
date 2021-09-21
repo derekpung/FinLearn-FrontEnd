@@ -12,7 +12,11 @@ function UserInfo({ userData }) {
       <Grid
         item
       >
-        <Avatar alt={`${userData.nickname} avatar`} src={userData.img || null} sx={{ width: 80, height: 80 }} variant="square" />
+        <Avatar 
+          alt={`${userData.nickname} avatar`} 
+          src={userData.img || null} 
+          sx={{ width: 80, height: 80 }} 
+          variant="square" />
       </Grid>
       <Grid
         item

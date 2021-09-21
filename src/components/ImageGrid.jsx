@@ -27,7 +27,7 @@ function ImageGrid({ itemData, behaviorGenerator }) {
             onClick={behaviorGenerator(item)}
             >
             <img
-              src={item.img}
+              src={item.image_link}
               alt={item.title}
               loading="lazy"
             />

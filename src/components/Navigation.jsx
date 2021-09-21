@@ -38,12 +38,7 @@ const routeObjs = [
     name: "Profile",
     icon: <HiOutlineUserCircle />,
     route: '/profile'
-  },
-  {
-    name: "Course",
-    icon: <HiOutlineSearch />,
-    route: '/course'
-  },
+  }
 ]
 
 const openedMixin = (theme) => ({
@@ -191,7 +186,7 @@ const DeskTopBar = () => {
             </Link>
           </Typography>
           <TopBar />
-        </Toolbar>
+    </Toolbar>
       </AppBar>
       <DesktopDrawer />
     </>

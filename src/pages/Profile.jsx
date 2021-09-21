@@ -19,11 +19,11 @@ function Profile() {
   // add auth0 details to user database if the user does not exist in the database
   useEffect(() => {
     if (user && user.sub) {
-      axios.get(`http://localhost:3002/user/by-uid?uid=${user.sub}`).then((response)=>{
+      axios.get(`${process.env.REACT_APP_LOCAL_API_URL}/user/by-uid?uid=${user.sub}`).then((response)=>{
         if(response.data.length === 0)
         {
           console.log("user does not exist");
-          axios.post("http://localhost:3002/user/add",
+          axios.post(`${process.env.REACT_APP_LOCAL_API_URL}/user/add`,
             {id: user.sub, name: user.nickname, email: user.email,
             signup: user.updated_at, verified: user.email_verified}).then((response)=>{
             console.log(response);})
@@ -62,7 +62,7 @@ function Profile() {
           icon={<FaAward/>}
           button={
             <Button 
-              onClick={notImplemented}
+              href="/explore/courses/"
               variant="contained">Start Learning!</Button>
           }/>
           :

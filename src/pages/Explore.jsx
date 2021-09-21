@@ -4,7 +4,8 @@ import { Box, Divider, Typography } from '@mui/material';
 import Page from '@components/Page';
 import ImageGrid from '@components/ImageGrid';
 import ButtonGrid from '@components/ButtonGrid'
-import { PageSection } from '../components/Page';
+import { PageSection } from '@components/Page';
+import { useAppContext } from '@src/Context';
 
 const getAllCourses = async () => {
   // this function should be returning a list of top courses from our db
@@ -50,6 +51,7 @@ const getAllMentors = async () => {
 
 
 function Explore() {
+  const { alertDispatch, notImplemented } = useAppContext()
   const [ topCourses, setTopCourses ] = useState([])
   const [ topMentors, setTopMentors ] = useState([])
 
@@ -83,14 +85,17 @@ function Explore() {
     "Computer Science"
   ]
   const courseClickBehavior = course => (
-    event => { console.log(`clicked ${course.title}`)}  
+    event => { 
+      alertDispatch({
+        type: 'alert', 
+        payload: {
+          message: `clicked ${course.title}`, 
+          alertType: 'info'
+        }})
+    }  
   )
-  const mentorClickBehavior = mentor => (
-    event => { console.log(`clicked ${mentor.title}`)}  
-  )
-  const buttonClickBehavior = (label) => (
-    event => { console.log(`clicked ${label}`)}
-  )
+  const mentorClickBehavior = mentor => notImplemented
+  const buttonClickBehavior = (label) => notImplemented
 
   return (
     <Page pageTitle="Explore">

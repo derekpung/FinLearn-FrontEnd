@@ -3,13 +3,14 @@ import { useLocation } from 'react-router-dom'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import MuiAppBar from '@mui/material/AppBar'
 import MuiDrawer from '@mui/material/Drawer'
-import { BottomNavigation, BottomNavigationAction, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Toolbar, Typography } from '@mui/material'
+import { BottomNavigation, BottomNavigationAction, Divider, Icon, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Toolbar, Typography } from '@mui/material'
 import { useTheme } from '@mui/material';
 import { HiChevronLeft, HiChevronRight, HiOutlineBadgeCheck, HiOutlineBookOpen, HiOutlineChatAlt2, HiOutlineCog, HiOutlineMenu, HiOutlineSearch, HiOutlineUserCircle } from 'react-icons/hi'
 import { styled } from '@mui/material/styles'
 import { Link } from 'react-router-dom';
 import SearchBar from '@components/SearchBar'
 import { Box } from '@mui/system';
+import Logo from '@assets/images/W_logo_small.png'
 
 const drawerWidth = Math.max(window.innerWidth * 0.2, 240);
 const routeObjs = [
@@ -176,11 +177,18 @@ const DeskTopBar = () => {
             <HiOutlineMenu />
           </IconButton>
           <Typography 
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ 
+              fontFamily: 'Archivo Black',
+              flexGrow: 1, 
+              display: { xs: 'none', sm: 'block' } 
+            }}
             component="div" 
             variant="h6" 
             noWrap>
-            FinLearn
+            <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <img alt="finlearn logo" src={Logo} height={32}/>
+              FINLEARN
+            </Link>
           </Typography>
           <TopBar />
         </Toolbar>

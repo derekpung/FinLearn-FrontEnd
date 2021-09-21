@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import '@styles/App.css';
+import '@styles/Fonts.css';
 // import '@styles/Custom.css'
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Explore from '@pages/Explore';

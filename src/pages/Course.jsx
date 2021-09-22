@@ -6,30 +6,32 @@ import queryString from 'query-string';
 import { getCourseById } from '@js/courses'
 import Loading from '@components/Loading'
 import Page, { PageSection } from '@components/Page';
+import { addTransaction } from '@js/transaction'
+import { useAppContext } from '@src/Context'
 
 function useQuery() {
   return queryString.parse(useLocation().search)
 }
 const TempAbout = () => (
   <div>
-    <button class="btn"><i class="fa fa-globe" style={{color:"#007AFF"}}></i>100% Online</button>
+    <button className="btn"><i className="fa fa-globe" style={{color:"#007AFF"}}></i>100% Online</button>
     &nbsp; &nbsp; &nbsp; 
-    <button><i class="fa fa-comment" style={{color:"#007AFF"}}></i>English</button>
+    <button><i className="fa fa-comment" style={{color:"#007AFF"}}></i>English</button>
     &nbsp; &nbsp; &nbsp;
-    <button><i class="fa fa-tasks" style={{color:"#007AFF"}}></i>Beginner Level</button>
+    <button><i className="fa fa-tasks" style={{color:"#007AFF"}}></i>Beginner Level</button>
     &nbsp; &nbsp; &nbsp;
-    <button> <i class="fa fa-hourglass-start" style={{color:"#007AFF"}}></i>1 Hour to Complete</button>
+    <button> <i className="fa fa-hourglass-start" style={{color:"#007AFF"}}></i>1 Hour to Complete</button>
   </div>
 )
 const TempSkills = () => (
   <div className="sideby">
-    <button class="btn"><i class="fa fa-check" style={{color:"green"}}></i>Blockchains</button>
+    <button className="btn"><i className="fa fa-check" style={{color:"green"}}></i>Blockchains</button>
     &nbsp; &nbsp; &nbsp; 
-    <button class="btn"><i class="fa fa-check" style={{color:"green"}}></i>Ethereum</button>
+    <button className="btn"><i className="fa fa-check" style={{color:"green"}}></i>Ethereum</button>
     &nbsp; &nbsp; &nbsp;
-    <button class="btn"><i class="fa fa-check" style={{color:"green"}}></i>Solidity</button>
+    <button className="btn"><i className="fa fa-check" style={{color:"green"}}></i>Solidity</button>
     &nbsp; &nbsp; &nbsp;
-    <button class="btn"><i class="fa fa-check" style={{color:"green"}}></i>Smart Contracts</button>
+    <button className="btn"><i className="fa fa-check" style={{color:"green"}}></i>Smart Contracts</button>
   </div>
 )
 const TempInstructor = () => (
@@ -43,6 +45,15 @@ const RenderCourse = ({ course }) => {
   const gridSettings = {
     xs:12,
     sm:6,
+  }
+  const { user, authLoading } = useAppContext();
+
+  const handleStartClick = () => {
+    console.log({userid: user.sub, courseid: course.id})
+    addTransaction(user.sub, course.id).finally(()=>{ window.location.href=`/explore/classroom?id=${course.id}`})
+    // .finally(
+    //   () => { window.location.href = `/explore/course/classroom?id=${course.id}` }
+    // )
   }
   
   return (
@@ -67,7 +78,10 @@ const RenderCourse = ({ course }) => {
             <TempInstructor />
           </PageSection>
           <PageSection>
-            <Button variant="contained">Start Learning</Button>
+            <Button 
+              disabled={authLoading} // dirty & desperate bug fix
+              onClick={handleStartClick}
+              variant="contained">Start Learning</Button>
           </PageSection>
         </Grid>
         <Grid
@@ -95,7 +109,7 @@ function Course() {
     }
   ,[ isLoading, query.id ])
 
-  return isLoading ? <Loading /> : <RenderCourse course={course}/>
+  return isLoading ? <Loading /> : <RenderCourse course={course} />
 }
 
 export default Course

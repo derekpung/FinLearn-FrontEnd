@@ -1,4 +1,4 @@
-import React, { useReducer, useContext, createContext } from 'react'
+import React, { useReducer, useContext, createContext, useState } from 'react'
 import { StyledEngineProvider } from '@mui/material/styles'
 import { Auth0Provider } from '@auth0/auth0-react'
 
@@ -23,6 +23,8 @@ const alertReducer = (state, action) => {
 
 export function AppProvider({ children }) {
   const [ pageAlerts, alertDispatch ] = useReducer(alertReducer, alertInit)
+  const [ user, setUser ] = useState(null)
+  const [ authLoading, setAuthLoading ] = useState(false)
   const notImplemented = event => { 
     alertDispatch({
       type: 'alert', 
@@ -36,7 +38,11 @@ export function AppProvider({ children }) {
   const contextValues = {
     pageAlerts,
     alertDispatch,
-    notImplemented
+    notImplemented,
+    user,
+    setUser,
+    authLoading,
+    setAuthLoading
   }
   
   return(

@@ -1,5 +1,4 @@
 import React,{ useState, useEffect } from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
 import Page, { PageSection } from '@components/Page';
 import { Button, Divider } from '@mui/material';
 import { FaUpload, FaFileAlt, FaAward } from 'react-icons/fa';
@@ -14,8 +13,7 @@ import { getCompletedById } from '@js/transaction'
 function Profile() {
   const [ isLoading, setIsLoading ] = useState(true)
   const [ achievements, setAchievements ] = useState([])
-  const { notImplemented } = useAppContext()
-  const { user } = useAuth0()
+  const { user, notImplemented } = useAppContext()
 
   const btnBehaviorGen = (label) => notImplemented
 

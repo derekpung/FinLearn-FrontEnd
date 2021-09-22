@@ -1,14 +1,29 @@
 import React from 'react';
-import { Box, Container, Grid, IconButton, Typography } from '@mui/material'
-import { HiOutlineLogin } from 'react-icons/hi'
+import { Box, Container, Grid, Typography } from '@mui/material'
 import Logo from '@assets/images/FinLearn_Logo_Transparent.png'
 import Page from '@components/Page'
+import { GrUserExpert } from 'react-icons/gr'
+import { FaCoins } from 'react-icons/fa'
+import { CgTimer } from 'react-icons/cg'
 
+const sellingPoints = [
+  {
+    text: "Learn from top industry experts",
+    icon: <GrUserExpert size={"2em"}/>
+  },
+  {
+    text: "15 minutes a day",
+    icon: <CgTimer size={"2em"}/>
+  },
+  {
+    text: "Earn LTE tokens",
+    icon: <FaCoins size={"2em"}/>
+  }
+]
 
 function Landing() {
   const gridSettings = {
-    xs:12,
-    sm:6,
+    xs:12
   }
   
   return (
@@ -38,13 +53,31 @@ function Landing() {
         <Grid
           {...gridSettings}
           item>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet enim nec diam elementum venenatis. Aenean fermentum fermentum commodo. Aliquam vitae tellus et erat dapibus pulvinar non a dui. Aliquam tristique in magna interdum lacinia. Sed justo ligula, ornare nec sapien et, sagittis fermentum libero. Maecenas leo tellus, vehicula in nulla pellentesque, placerat faucibus quam. Phasellus sed volutpat justo, sit amet suscipit leo. Nunc interdum, lorem vel ornare ullamcorper, neque lectus sagittis ipsum, sed consectetur mauris dolor vel mauris. Curabitur vel ex augue. Aliquam pulvinar nisi orci, a scelerisque mi malesuada quis. Suspendisse potenti. Aenean non lacus non leo viverra interdum ac ultricies lacus. Mauris ac tincidunt nisl.
-
-            Maecenas nisi dui, consectetur at nunc et, fermentum sodales leo. Sed non fringilla orci. Vestibulum venenatis luctus sem, at accumsan nibh tristique ut. Nunc volutpat magna nec justo egestas pellentesque. Nunc vel fermentum ante. Morbi dui lorem, porttitor eu tellus sit amet, elementum faucibus neque. Maecenas leo purus, tincidunt sit amet tellus ut, gravida porttitor dolor. Aenean tempus nec elit vitae porta.
-
-            Maecenas gravida est ultricies, interdum lectus a, gravida urna. Phasellus rhoncus bibendum gravida. Vestibulum molestie aliquet finibus. Curabitur vitae tortor finibus justo ullamcorper euismod. Phasellus hendrerit tincidunt justo, sit amet varius odio pharetra in. Suspendisse pellentesque nec erat quis ornare. Aliquam sed pellentesque urna, eget pretium velit. Morbi tincidunt lectus vel nunc iaculis, sed mollis libero consectetur. In magna ligula, rutrum id molestie in, tristique venenatis quam. Curabitur hendrerit libero sit amet odio pellentesque, ut egestas ligula ullamcorper. In congue massa velit, in blandit sem volutpat et.
-          </Typography>
+          <Grid
+          container>
+            {
+              sellingPoints.map(
+                item =>
+                <Grid
+                  xs={12}
+                  md={4}
+                  item
+                >
+                  <Container
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {item.icon}
+                  </Container>
+                  <Typography 
+                    sx={{textAlign: 'center', marginTop: '1em'}}
+                    variant="subtitle1">{item.text}</Typography>
+                </Grid>
+              )
+            }
+          </Grid>
         </Grid>
       </Grid>
     </Page>

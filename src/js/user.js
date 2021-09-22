@@ -13,3 +13,19 @@ export const getUserById = async (id, setWallet) => {
       }
     )
 }
+
+// Update the user's wallet when the user completes the course
+export const updateWallet = async (user_id, course_id) => {
+  return await
+    axios.put(
+      `${process.env.REACT_APP_LOCAL_API_URL}/user/wallet/update/by-uid-cid`,
+      {
+        params: {
+          uid: user_id,
+          cid: course_id
+        }
+      }
+    ).then((response)=>{
+          console.log(response);
+        })
+}

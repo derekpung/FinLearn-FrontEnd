@@ -25,15 +25,3 @@ export const getCourseById = async (id, setData) => {
     )
 }
 
-export const postSignUp = async (cid, uid, callback) => {
-  return await
-    axios.post(
-      `${process.env.REACT_APP_LOCAL_API_URL}/transaction/add/by-uid-cid`,
-      {
-        params: {
-          uid,
-          cid
-        }
-      }
-    ).then(callback)
-}

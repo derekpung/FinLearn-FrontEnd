@@ -1,49 +1,34 @@
 import React,{ useState, useEffect } from 'react';
 import Page, { PageSection } from '@components/Page';
-import { useAuth0 } from "@auth0/auth0-react";
 import { Button, Divider } from '@mui/material';
 import { FaUpload, FaFileAlt, FaAward } from 'react-icons/fa';
-import axios from "axios";
 import ButtonGrid from '@components/ButtonGrid';
 import UserInfo from '@components/UserInfo';
 import ListShare from '@components/ListShare';
 import Empty from '@components/Empty';
+import Loading from '@components/Loading';
 import { useAppContext } from '@src/Context';
-
+import { getCompletedById } from '@js/transaction'
 
 function Profile() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const [ isLoading, setIsLoading ] = useState(true)
   const [ achievements, setAchievements ] = useState([])
-  const { notImplemented } = useAppContext()
-
-  // add auth0 details to user database if the user does not exist in the database
-  useEffect(() => {
-    if (user && user.sub) {
-      axios.get(`${process.env.REACT_APP_LOCAL_API_URL}/user/by-uid?uid=${user.sub}`).then((response)=>{
-        if(response.data.length === 0)
-        {
-          console.log("user does not exist");
-          axios.post(`${process.env.REACT_APP_LOCAL_API_URL}/user/add`,
-            {id: user.sub, name: user.nickname, email: user.email,
-            signup: user.updated_at, verified: user.email_verified}).then((response)=>{
-            console.log(response);})
-        }
-        else
-        {
-          console.log("user exists");
-        }
-      })
-    }
-  },[])
-
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
+  const { user, notImplemented } = useAppContext()
 
   const btnBehaviorGen = (label) => notImplemented
 
+  useEffect(() => {
+    if (user && isLoading) {
+      getCompletedById(user.sub, setAchievements)
+      .finally(
+        setIsLoading(false)
+      )
+    }
+  }, [ isLoading, user ])
   return (
-    isAuthenticated && (
+    isLoading ?
+    <Loading />
+    :(
     <Page pageTitle="Profile" className="page" containertype="containerprofile">
       <PageSection>
         <UserInfo userData={user} />
@@ -62,7 +47,7 @@ function Profile() {
           icon={<FaAward/>}
           button={
             <Button 
-              href="/explore/courses/"
+              href="/explore"
               variant="contained">Start Learning!</Button>
           }/>
           :

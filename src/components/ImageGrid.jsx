@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, IconButton, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
+import { Grid, IconButton, ImageListItem, ImageListItemBar } from '@mui/material';
 import { HiOutlineInformationCircle } from 'react-icons/hi';
 
 function ImageGrid({ itemData, behaviorGenerator }) {

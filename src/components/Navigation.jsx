@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation } from 'react-router-dom'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import MuiAppBar from '@mui/material/AppBar'
 import MuiDrawer from '@mui/material/Drawer'
-import { BottomNavigation, BottomNavigationAction, Divider, Icon, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Toolbar, Typography } from '@mui/material'
+import { BottomNavigation, BottomNavigationAction, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Toolbar, Typography } from '@mui/material'
 import { useTheme } from '@mui/material';
-import { HiChevronLeft, HiChevronRight, HiOutlineBadgeCheck, HiOutlineBookOpen, HiOutlineChatAlt2, HiOutlineCog, HiOutlineMenu, HiOutlineSearch, HiOutlineUserCircle } from 'react-icons/hi'
+import { HiChevronLeft, HiChevronRight, HiOutlineBadgeCheck, HiOutlineBookOpen, HiOutlineChatAlt2, HiOutlineLogout, HiOutlineMenu, HiOutlineSearch, HiOutlineUserCircle } from 'react-icons/hi'
 import { styled } from '@mui/material/styles'
 import { Link } from 'react-router-dom';
 import SearchBar from '@components/SearchBar'
 import { Box } from '@mui/system';
 import Logo from '@assets/images/W_logo_small.png'
+import { useAppContext } from '@src/Context';
+import { getUserById, addUser } from '@js/user'
+
 
 const drawerWidth = Math.max(window.innerWidth * 0.2, 240);
 const routeObjs = [
@@ -106,20 +111,25 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const TopBar = () => (
+const TopBar = ({ auth }) => (
   <Box sx={{ display: 'flex' }}>
     <SearchBar />
     <IconButton
       edge="end"
       color="inherit"
       aria-label="app settings"
+      onClick={
+        auth.isAuthenticated ?
+        () => auth.logout({ returnTo: process.env.REACT_APP_BASE_URL })
+        : () => window.location.href="/signin"
+      }
     >
-      <HiOutlineCog />
+      <HiOutlineLogout />
     </IconButton>
   </Box>
 )
 
-const DeskTopBar = () => {
+const DeskTopBar = ({auth}) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -159,18 +169,22 @@ const DeskTopBar = () => {
     <>
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: '36px',
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <HiOutlineMenu />
-          </IconButton>
+          {
+            auth.isAuthenticated ?
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: '36px',
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <HiOutlineMenu />
+            </IconButton>
+            : null
+          }
           <Typography 
             sx={{ 
               fontFamily: 'Archivo Black',
@@ -185,10 +199,10 @@ const DeskTopBar = () => {
               FINLEARN
             </Link>
           </Typography>
-          <TopBar />
+          <TopBar auth={auth}/>
     </Toolbar>
       </AppBar>
-      <DesktopDrawer />
+      {auth.isAuthenticated ? <DesktopDrawer /> : null}
     </>
   )
 }
@@ -211,24 +225,59 @@ const MobileNav = ({ pathname }) => (
   </Paper>
 )
 
+const createUserAcc = async (user) => {
+  if (user && user.sub) {
+    await getUserById(user.sub).then((response)=>{
+      if(response.data.length === 0)
+      {
+        console.log("user does not exist");
+        return addUser(user)
+      }
+      else
+      {
+        console.log("user exists");
+      }
+    })
+  }
+}
+  
 export function NavigationWrapper({component}) {
   const location = useLocation()
   const isMobile = useMediaQuery('(max-width: 600px)');
+
+  const auth = useAuth0();
+  const { setUser, setAuthLoading } = useAppContext();
+
+  useEffect(() => {
+    setAuthLoading(true)
+    if (!auth.isLoading) {
+      if (auth.user) {  
+        createUserAcc(auth.user)
+        setUser(auth.user)
+      } else {
+        if (window.location.pathname != "/signin" && window.location.pathname != "/") {
+          window.location.href="signin"
+        }
+      }
+    }
+    setAuthLoading(false)
+  },[ auth, setUser, setAuthLoading ])
+  
 
   return (
     isMobile ? (
       <>
         <main>
-          <TopBar />
+          <TopBar auth={auth}/>
           {component()}
           <DrawerHeader />
         </main>
-        <MobileNav pathname={location.pathname}/>
+        {auth.isAuthenticated ? <MobileNav pathname={location.pathname}/> : null}
       </>
     )
     : (
       <>
-        <DeskTopBar />
+        <DeskTopBar auth={auth}/>
         <main>
           <DrawerHeader />
           {component()}

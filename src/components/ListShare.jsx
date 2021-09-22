@@ -1,6 +1,6 @@
 import React from "react";
-import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
-import { FaAward, FaShareSquare } from 'react-icons/fa'
+import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material'
+import { FaAward } from 'react-icons/fa'
 
 function ListShare({ listData }) {
   return (

@@ -1,4 +1,4 @@
-import { CircularProgress, Container, Skeleton } from '@mui/material'
+import { CircularProgress, Container } from '@mui/material'
 import React from 'react'
 import { PageSection } from '@components/Page'
 

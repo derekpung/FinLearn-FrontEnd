@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Divider, Typography } from '@mui/material';
+import { Divider } from '@mui/material';
 import Page from '@components/Page';
 import ImageGrid from '@components/ImageGrid';
 import ButtonGrid from '@components/ButtonGrid'
@@ -31,7 +31,7 @@ function Explore() {
       console.log('error')
     }
   }
-  useEffect(() => { isLoading && getDbData() }, [])
+  useEffect(() => { isLoading && getDbData() }, [ isLoading ])
 
   const filterTags = [
     "Finance",

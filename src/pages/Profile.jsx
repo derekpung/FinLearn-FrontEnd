@@ -10,31 +10,27 @@ import ListShare from '@components/ListShare';
 import Empty from '@components/Empty';
 import { useAppContext } from '@src/Context';
 
-
 function Profile() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [ achievements, setAchievements ] = useState([])
   const { notImplemented } = useAppContext()
 
-  // add auth0 details to user database if the user does not exist in the database
-  useEffect(() => {
-    if (user && user.sub) {
-      axios.get(`${process.env.REACT_APP_LOCAL_API_URL}/user/by-uid?uid=${user.sub}`).then((response)=>{
-        if(response.data.length === 0)
-        {
-          console.log("user does not exist");
-          axios.post(`${process.env.REACT_APP_LOCAL_API_URL}/user/add`,
-            {id: user.sub, name: user.nickname, email: user.email,
-            signup: user.updated_at, verified: user.email_verified}).then((response)=>{
-            console.log(response);})
-        }
-        else
-        {
-          console.log("user exists");
-        }
-      })
-    }
-  },[])
+  if (isAuthenticated) {
+    axios.get(`${process.env.REACT_APP_LOCAL_API_URL}/user/by-uid?uid=${user.sub}`).then((response)=>{
+      if(response.data.length === 0)
+      {
+        console.log("user does not exist");
+        axios.post(`${process.env.REACT_APP_LOCAL_API_URL}/user/add`,
+          {id: user.sub, name: user.nickname, email: user.email,
+          signup: user.updated_at, verified: user.email_verified}).then((response)=>{
+          console.log(response);})
+      }
+      else
+      {
+        console.log("user exists");
+      }
+    })
+  }
 
   if (isLoading) {
     return <div>Loading ...</div>;
@@ -62,7 +58,7 @@ function Profile() {
           icon={<FaAward/>}
           button={
             <Button 
-              href="/explore/courses/"
+              href="/explore"
               variant="contained">Start Learning!</Button>
           }/>
           :

@@ -1,54 +1,35 @@
 import React,{ useState, useEffect } from 'react';
-import Page, { PageSection } from '@components/Page';
 import { useAuth0 } from "@auth0/auth0-react";
+import Page, { PageSection } from '@components/Page';
 import { Button, Divider } from '@mui/material';
 import { FaUpload, FaFileAlt, FaAward } from 'react-icons/fa';
 import ButtonGrid from '@components/ButtonGrid';
 import UserInfo from '@components/UserInfo';
 import ListShare from '@components/ListShare';
 import Empty from '@components/Empty';
+import Loading from '@components/Loading';
 import { useAppContext } from '@src/Context';
-import { getUserById, addUser } from '@js/user'
 import { getCompletedById } from '@js/transaction'
 
-const createUserAcc = async (user) => {
-  if (user && user.sub) {
-    await getUserById(user.sub).then((response)=>{
-      if(response.data.length === 0)
-      {
-        console.log("user does not exist");
-        return addUser(user)
-      }
-      else
-      {
-        console.log("user exists");
-      }
-    })
-  }
-}
-
 function Profile() {
-  const { user, isLoading } = useAuth0();
-  const [ pageLoading, setPageLoading ] = useState(true)
+  const [ isLoading, setIsLoading ] = useState(true)
   const [ achievements, setAchievements ] = useState([])
   const { notImplemented } = useAppContext()
-
-  useEffect(() => {
-    if (!isLoading) {
-      Promise.all(
-        createUserAcc(user),
-        getCompletedById(user.sub, setAchievements)
-      ).finally(
-        setPageLoading(false)
-      )
-    }
-  },[ isLoading, user ])
+  const { user } = useAuth0()
 
   const btnBehaviorGen = (label) => notImplemented
 
+  useEffect(() => {
+    if (user && isLoading) {
+      getCompletedById(user.sub, setAchievements)
+      .finally(
+        setIsLoading(false)
+      )
+    }
+  }, [ isLoading, user ])
   return (
-    pageLoading ?
-    <></>
+    isLoading ?
+    <Loading />
     :(
     <Page pageTitle="Profile" className="page" containertype="containerprofile">
       <PageSection>

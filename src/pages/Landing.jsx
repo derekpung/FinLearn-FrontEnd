@@ -1,5 +1,4 @@
 import React from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
 import { Box, Container, Grid, IconButton, Typography } from '@mui/material'
 import { HiOutlineLogin } from 'react-icons/hi'
 import Logo from '@assets/images/FinLearn_Logo_Transparent.png'
@@ -7,8 +6,6 @@ import Page from '@components/Page'
 
 
 function Landing() {
-  const { loginWithRedirect } = useAuth0();
-
   const gridSettings = {
     xs:12,
     sm:6,
@@ -48,35 +45,10 @@ function Landing() {
 
             Maecenas gravida est ultricies, interdum lectus a, gravida urna. Phasellus rhoncus bibendum gravida. Vestibulum molestie aliquet finibus. Curabitur vitae tortor finibus justo ullamcorper euismod. Phasellus hendrerit tincidunt justo, sit amet varius odio pharetra in. Suspendisse pellentesque nec erat quis ornare. Aliquam sed pellentesque urna, eget pretium velit. Morbi tincidunt lectus vel nunc iaculis, sed mollis libero consectetur. In magna ligula, rutrum id molestie in, tristique venenatis quam. Curabitur hendrerit libero sit amet odio pellentesque, ut egestas ligula ullamcorper. In congue massa velit, in blandit sem volutpat et.
           </Typography>
-          <IconButton
-            edge="end"
-            color="inherit"
-            aria-label="login"
-            onClick={() => loginWithRedirect()}
-          >
-            <div>Login/Signup</div>
-            <HiOutlineLogin />
-          </IconButton> 
         </Grid>
       </Grid>
     </Page>
   )
 }
-    // <div
-    //   backgroundImage: `url("https://images.unsplash.com/photo-1529148482759-b35b25c5f217?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80")`,
-    //   width: "100vw",
-    //   height: "100vh"
-    // }}>
-
-      // <IconButton
-      //   edge="end"
-      //   color="inherit"
-      //   aria-label="login"
-      //   onClick={() => loginWithRedirect()}
-      // >
-      //   <div>Login/Signup</div>
-      //   <HiOutlineLogin />
-      // </IconButton> 
-    // </div>
 
 export default Landing

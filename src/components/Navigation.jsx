@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation } from 'react-router-dom'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import MuiAppBar from '@mui/material/AppBar'
 import MuiDrawer from '@mui/material/Drawer'
 import { BottomNavigation, BottomNavigationAction, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Toolbar, Typography } from '@mui/material'
 import { useTheme } from '@mui/material';
-import { HiChevronLeft, HiChevronRight, HiOutlineBadgeCheck, HiOutlineBookOpen, HiOutlineChatAlt2, HiOutlineCog, HiOutlineMenu, HiOutlineSearch, HiOutlineUserCircle } from 'react-icons/hi'
+import { HiChevronLeft, HiChevronRight, HiOutlineBadgeCheck, HiOutlineBookOpen, HiOutlineChatAlt2, HiOutlineLogout, HiOutlineMenu, HiOutlineSearch, HiOutlineUserCircle } from 'react-icons/hi'
 import { styled } from '@mui/material/styles'
 import { Link } from 'react-router-dom';
 import SearchBar from '@components/SearchBar'
 import { Box } from '@mui/system';
 import Logo from '@assets/images/W_logo_small.png'
+import { useAppContext } from '@src/Context';
+import { getUserById, addUser } from '@js/user'
+
 
 const drawerWidth = Math.max(window.innerWidth * 0.2, 240);
 const routeObjs = [
@@ -106,20 +111,21 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const TopBar = () => (
+const TopBar = ({ logout }) => (
   <Box sx={{ display: 'flex' }}>
     <SearchBar />
     <IconButton
       edge="end"
       color="inherit"
       aria-label="app settings"
+      onClick={() => logout({ returnTo: process.env.REACT_APP_BASE_URL })}
     >
-      <HiOutlineCog />
+      <HiOutlineLogout />
     </IconButton>
   </Box>
 )
 
-const DeskTopBar = () => {
+const DeskTopBar = ({logout}) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -185,7 +191,7 @@ const DeskTopBar = () => {
               FINLEARN
             </Link>
           </Typography>
-          <TopBar />
+          <TopBar logout={logout}/>
     </Toolbar>
       </AppBar>
       <DesktopDrawer />
@@ -211,15 +217,44 @@ const MobileNav = ({ pathname }) => (
   </Paper>
 )
 
+const createUserAcc = async (user) => {
+  if (user && user.sub) {
+    await getUserById(user.sub).then((response)=>{
+      if(response.data.length === 0)
+      {
+        console.log("user does not exist");
+        return addUser(user)
+      }
+      else
+      {
+        console.log("user exists");
+      }
+    })
+  }
+}
+  
 export function NavigationWrapper({component}) {
   const location = useLocation()
   const isMobile = useMediaQuery('(max-width: 600px)');
+
+  const { user, isAuthenticated, isLoading, logout } = useAuth0();
+  const { setUser, setAuthLoading } = useAppContext();
+
+  useEffect(() => {
+    setAuthLoading(true)
+    if (!isLoading) {
+      createUserAcc(user)
+      setAuthLoading(false)
+      setUser(user)
+    }
+  },[ isLoading, user, isAuthenticated, setUser, setAuthLoading ])
+  
 
   return (
     isMobile ? (
       <>
         <main>
-          <TopBar />
+          <TopBar logout={logout}/>
           {component()}
           <DrawerHeader />
         </main>
@@ -228,7 +263,7 @@ export function NavigationWrapper({component}) {
     )
     : (
       <>
-        <DeskTopBar />
+        <DeskTopBar logout={logout}/>
         <main>
           <DrawerHeader />
           {component()}

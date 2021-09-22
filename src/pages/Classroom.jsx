@@ -15,7 +15,7 @@ function Classroom() {
   const query = useQuery()
 
   const handleMock = () => {
-    completeTransaction(user.sub, query.id)
+    completeTransaction(user.sub, query.id).finally(()=>{window.location.href="/profile"})
   }
   
   if( !isLoading && isAuthenticated ) {
@@ -40,7 +40,7 @@ function Classroom() {
         </div>
         <div>
         <br/>
-        <Button variant="contained" onClick={handleMock}>Mock completion</Button>
+        <Button sx={{ backgroundColor: 'lime', color: 'black' }} variant="contained" onClick={handleMock}>Mock completion</Button>
         </div>
         
         {/* <Button variant="contained"><i className='fas fa-book-open'></i>Quiz</Button> */}

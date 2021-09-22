@@ -3,27 +3,21 @@ import Page, { PageSection } from '@components/Page';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button, Divider } from '@mui/material';
 import { FaUpload, FaFileAlt, FaAward } from 'react-icons/fa';
-import axios from "axios";
 import ButtonGrid from '@components/ButtonGrid';
 import UserInfo from '@components/UserInfo';
 import ListShare from '@components/ListShare';
 import Empty from '@components/Empty';
 import { useAppContext } from '@src/Context';
+import { getUserById, addUser } from '@js/user'
+import { getCompletedById } from '@js/transaction'
 
-function Profile() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
-  const [ achievements, setAchievements ] = useState([])
-  const { notImplemented } = useAppContext()
-
-  if (isAuthenticated) {
-    axios.get(`${process.env.REACT_APP_LOCAL_API_URL}/user/by-uid?uid=${user.sub}`).then((response)=>{
+const createUserAcc = async (user) => {
+  if (user && user.sub) {
+    await getUserById(user.sub).then((response)=>{
       if(response.data.length === 0)
       {
         console.log("user does not exist");
-        axios.post(`${process.env.REACT_APP_LOCAL_API_URL}/user/add`,
-          {id: user.sub, name: user.nickname, email: user.email,
-          signup: user.updated_at, verified: user.email_verified}).then((response)=>{
-          console.log(response);})
+        return addUser(user)
       }
       else
       {
@@ -31,15 +25,31 @@ function Profile() {
       }
     })
   }
+}
 
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
+function Profile() {
+  const { user, isLoading } = useAuth0();
+  const [ pageLoading, setPageLoading ] = useState(true)
+  const [ achievements, setAchievements ] = useState([])
+  const { notImplemented } = useAppContext()
+
+  useEffect(() => {
+    if (!isLoading) {
+      Promise.all(
+        createUserAcc(user),
+        getCompletedById(user.sub, setAchievements)
+      ).finally(
+        setPageLoading(false)
+      )
+    }
+  },[ isLoading, user ])
 
   const btnBehaviorGen = (label) => notImplemented
 
   return (
-    isAuthenticated && (
+    pageLoading ?
+    <></>
+    :(
     <Page pageTitle="Profile" className="page" containertype="containerprofile">
       <PageSection>
         <UserInfo userData={user} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
-import { Avatar, Grid, Divider, Container } from '@mui/material';
+import { Avatar, Grid, Divider } from '@mui/material';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import { getCourseById } from '@js/courses'
@@ -93,7 +93,7 @@ function Course() {
       .then(()=>{ setIsLoading(false) })
       .catch((err)=>{ console.log(err); window.location.href = "/404" } )
     }
-  ,[])
+  ,[ isLoading, query.id ])
 
   return isLoading ? <Loading /> : <RenderCourse course={course}/>
 }

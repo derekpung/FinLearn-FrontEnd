@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import { IconButton, Container, Grid, Typography } from '@mui/material'
+import { Box, Container, Grid, IconButton, Typography } from '@mui/material'
 import { HiOutlineLogin } from 'react-icons/hi'
 import Logo from '@assets/images/FinLearn_Logo_Transparent.png'
 import Page from '@components/Page'
@@ -23,8 +23,19 @@ function Landing() {
         <Grid
           {...gridSettings}
           item>
-          <Container>
-          <img src={Logo}/>
+          <Container
+            sx={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
+            <Box
+              sx={{
+                maxWidth: '80%'
+              }}
+            >
+              <img src={Logo} alt="Finlearn logo" width="100%"/>
+            </Box>
           </Container>
         </Grid>
         <Grid

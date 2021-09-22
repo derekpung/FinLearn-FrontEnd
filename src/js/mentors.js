@@ -1,4 +1,3 @@
-import axios from "axios";
 
 export const getAllMentors = async () => {
   // this function should be returning a list of top mentors from our db

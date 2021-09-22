@@ -111,21 +111,25 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const TopBar = ({ logout }) => (
+const TopBar = ({ auth }) => (
   <Box sx={{ display: 'flex' }}>
     <SearchBar />
     <IconButton
       edge="end"
       color="inherit"
       aria-label="app settings"
-      onClick={() => logout({ returnTo: process.env.REACT_APP_BASE_URL })}
+      onClick={
+        auth.isAuthenticated ?
+        () => auth.logout({ returnTo: process.env.REACT_APP_BASE_URL })
+        : () => window.location.href="/signin"
+      }
     >
       <HiOutlineLogout />
     </IconButton>
   </Box>
 )
 
-const DeskTopBar = ({logout}) => {
+const DeskTopBar = ({auth}) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -165,18 +169,22 @@ const DeskTopBar = ({logout}) => {
     <>
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: '36px',
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <HiOutlineMenu />
-          </IconButton>
+          {
+            auth.isAuthenticated ?
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: '36px',
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <HiOutlineMenu />
+            </IconButton>
+            : null
+          }
           <Typography 
             sx={{ 
               fontFamily: 'Archivo Black',
@@ -191,10 +199,10 @@ const DeskTopBar = ({logout}) => {
               FINLEARN
             </Link>
           </Typography>
-          <TopBar logout={logout}/>
+          <TopBar auth={auth}/>
     </Toolbar>
       </AppBar>
-      <DesktopDrawer />
+      {auth.isAuthenticated ? <DesktopDrawer /> : null}
     </>
   )
 }
@@ -237,33 +245,39 @@ export function NavigationWrapper({component}) {
   const location = useLocation()
   const isMobile = useMediaQuery('(max-width: 600px)');
 
-  const { user, isAuthenticated, isLoading, logout } = useAuth0();
+  const auth = useAuth0();
   const { setUser, setAuthLoading } = useAppContext();
 
   useEffect(() => {
     setAuthLoading(true)
-    if (!isLoading) {
-      createUserAcc(user)
-      setAuthLoading(false)
-      setUser(user)
+    if (!auth.isLoading) {
+      if (auth.user) {  
+        createUserAcc(auth.user)
+        setUser(auth.user)
+      } else {
+        if (window.location.pathname != "/signin" && window.location.pathname != "/") {
+          window.location.href="signin"
+        }
+      }
     }
-  },[ isLoading, user, isAuthenticated, setUser, setAuthLoading ])
+    setAuthLoading(false)
+  },[ auth, setUser, setAuthLoading ])
   
 
   return (
     isMobile ? (
       <>
         <main>
-          <TopBar logout={logout}/>
+          <TopBar auth={auth}/>
           {component()}
           <DrawerHeader />
         </main>
-        <MobileNav pathname={location.pathname}/>
+        {auth.isAuthenticated ? <MobileNav pathname={location.pathname}/> : null}
       </>
     )
     : (
       <>
-        <DeskTopBar logout={logout}/>
+        <DeskTopBar auth={auth}/>
         <main>
           <DrawerHeader />
           {component()}

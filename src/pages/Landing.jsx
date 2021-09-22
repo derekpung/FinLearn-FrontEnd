@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Container, Grid, Typography } from '@mui/material'
 import Logo from '@assets/images/FinLearn_Logo_Transparent.png'
 import Page from '@components/Page'
+import { SigninButton } from '@components/Auth'
 import { GrUserExpert } from 'react-icons/gr'
 import { FaCoins } from 'react-icons/fa'
 import { CgTimer } from 'react-icons/cg'
@@ -25,6 +26,10 @@ function Landing() {
   const gridSettings = {
     xs:12
   }
+  const containerStyle={
+    display: 'flex',
+    justifyContent: 'center'
+  }
   
   return (
     <Page>
@@ -36,10 +41,7 @@ function Landing() {
           {...gridSettings}
           item>
           <Container
-            sx={{
-              display: 'flex',
-              justifyContent: 'center'
-            }}
+            sx={containerStyle}
           >
             <Box
               sx={{
@@ -64,10 +66,7 @@ function Landing() {
                   item
                 >
                   <Container
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center'
-                    }}
+                    sx={containerStyle}
                   >
                     {item.icon}
                   </Container>
@@ -79,6 +78,9 @@ function Landing() {
             }
           </Grid>
         </Grid>
+        <Container sx={{...containerStyle, marginTop: '5em'}}>
+          <SigninButton />
+        </Container>
       </Grid>
     </Page>
   )

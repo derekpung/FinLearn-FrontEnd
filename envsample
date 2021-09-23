@@ -1,0 +1,12 @@
+# authentication (Auth0) environment variables
+REACT_APP_ISSUER_BASE_URL=YourAuth0IssuerBaseURLHere
+REACT_APP_CLIENT_ID=YourAuth0ClientIDHere
+REACT_APP_BASE_URL=http://localhost:3001
+# MySQL database environment variables
+REACT_APP_DBHOST=YourMySQLServerURLhere
+REACT_APP_DBUSER=YourUsernameHere
+REACT_APP_DBPASSWD=YourPasswordHere
+REACT_APP_DBPORT=YourPortNumberHere
+REACT_APP_DBNAME=YourDatabaseNameHere
+# Backend API
+REACT_APP_LOCAL_API_URL=http://localhost:3002

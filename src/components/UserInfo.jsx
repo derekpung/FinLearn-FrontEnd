@@ -14,7 +14,7 @@ function UserInfo({ userData }) {
       >
         <Avatar 
           alt={`${userData.given_name || userData.nickname} avatar`} 
-          src={userData.img || null} 
+          src={userData.picture || null} 
           sx={{ width: 80, height: 80 }} 
           variant="square" />
       </Grid>

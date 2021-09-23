@@ -7,7 +7,7 @@ export const SigninButton = () => {
   return (
     <Button 
       variant="contained"
-      onClick={() => loginWithRedirect({ redirectUri:"http://localhost:3000/profile" })}
+      onClick={() => loginWithRedirect({ redirectUri:`${process.env.REACT_APP_BASE_URL}/profile` })}
       aria-label="login">Sign In</Button>
   )
 }

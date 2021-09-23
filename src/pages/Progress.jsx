@@ -5,7 +5,6 @@ import { Button } from '@mui/material'
 import { HiOutlineBookOpen } from 'react-icons/hi'
 import { useAppContext } from '@src/Context';
 
-
 function Progress() {
   const { notImplemented } = useAppContext()
   // api call for list of courses

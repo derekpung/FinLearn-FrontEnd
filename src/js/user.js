@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const getUserById = async (id, callback) => {
+export const getUserById = async (id, setUser) => {
   return await 
     axios.get(`${process.env.REACT_APP_LOCAL_API_URL}/user/by-uid`,
       {
@@ -24,6 +24,7 @@ export const addUser = async (user) => {
       userData
     ).then(() => userData)      
 }
+
 // Update the user's wallet when the user completes the course
 export const updateWallet = async (user_id, course_id) => {
   return await

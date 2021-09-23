@@ -5,6 +5,7 @@ import Page from '@components/Page';
 import { Button } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
 import { completeTransaction } from '@js/transaction'
+import { updateWallet } from '@js/user'
 
 function useQuery() {
   return queryString.parse(useLocation().search)
@@ -15,7 +16,12 @@ function Classroom() {
   const query = useQuery()
 
   const handleMock = () => {
-    completeTransaction(user.sub, query.id).finally(()=>{window.location.href="/profile"})
+    Promise.all(
+    [
+      completeTransaction(user.sub, query.id),
+      updateWallet(user.sub, query.id)
+    ]
+    ).finally(()=>{window.location.href="/profile"})
   }
   
   if( !isLoading && isAuthenticated ) {

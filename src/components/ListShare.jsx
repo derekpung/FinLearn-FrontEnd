@@ -17,7 +17,7 @@ function ListShare({ listData }) {
                 <FaAward size="2em"/>
               </ListItemIcon>
               <ListItemText
-                primary={item.title}
+                primary={item.course}
                 secondary={
                   <>
                     <Typography
@@ -28,7 +28,7 @@ function ListShare({ listData }) {
                     >
                       {item.subtitle}
                     </Typography>
-                    {` — ${item.text}`}
+                    {` — ${item.completed}`}
                   </>
                 }
               />

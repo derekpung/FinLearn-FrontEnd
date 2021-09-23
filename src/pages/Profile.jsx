@@ -9,18 +9,24 @@ import Empty from '@components/Empty';
 import Loading from '@components/Loading';
 import { useAppContext } from '@src/Context';
 import { getCompletedById } from '@js/transaction'
+import { getUserById } from '@js/user'
 
 function Profile() {
   const [ isLoading, setIsLoading ] = useState(true)
   const [ achievements, setAchievements ] = useState([])
   const { user, notImplemented } = useAppContext()
+  const [ dbUser, setDbUser ] = useState(null)
 
   const btnBehaviorGen = (label) => notImplemented
 
   useEffect(() => {
     if (user && isLoading) {
-      getCompletedById(user.sub, setAchievements)
-      .finally(
+      Promise.all(
+        [
+          getCompletedById(user.sub, setAchievements),
+          getUserById(user.sub).then(result => setDbUser(result.data[0]))
+        ]
+      ).finally(
         setIsLoading(false)
       )
     }
@@ -31,7 +37,7 @@ function Profile() {
     :(
     <Page pageTitle="Profile" className="page" containertype="containerprofile">
       <PageSection>
-        <UserInfo userData={user} />
+        <UserInfo userData={{...user,...dbUser}} />
       </PageSection>
       <PageSection>
         <ButtonGrid 

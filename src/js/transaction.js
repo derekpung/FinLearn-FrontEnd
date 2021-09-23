@@ -36,7 +36,23 @@ export const completeTransaction = async (user_id, course_id) => {
 export const getCompletedById = async (user_id, setData) => {
   return await
     axios.get(
-      `${process.env.REACT_APP_LOCAL_API_URL}/transaction/completed/by-uid`,
+      `${process.env.REACT_APP_LOCAL_API_URL}/transaction/status/by-user-complete`,
+      {
+        params: {
+          uid: user_id
+        }
+      }
+      ).then(
+        result => {
+          setData(result.data)
+        }
+    )
+}
+
+export const getIncompleteById = async (user_id, setData) => {
+  return await
+    axios.get(
+      `${process.env.REACT_APP_LOCAL_API_URL}/transaction/status/by-user-incomplete`,
       {
         params: {
           uid: user_id

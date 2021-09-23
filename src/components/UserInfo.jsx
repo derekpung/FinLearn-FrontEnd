@@ -3,7 +3,7 @@ import { Avatar, Grid, Stack, Typography } from '@mui/material';
 import { FaCoins } from 'react-icons/fa'
 
 function UserInfo({ userData }) {
-
+  
   return (
     <Grid
       container

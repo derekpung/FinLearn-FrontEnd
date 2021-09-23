@@ -3,7 +3,6 @@ import { Avatar, Grid, Stack, Typography } from '@mui/material';
 import { FaCoins } from 'react-icons/fa'
 
 function UserInfo({ userData }) {
-  
   return (
     <Grid
       container
@@ -14,7 +13,7 @@ function UserInfo({ userData }) {
         item
       >
         <Avatar 
-          alt={`${userData.given_name} avatar`} 
+          alt={`${userData.given_name || userData.nickname} avatar`} 
           src={userData.img || null} 
           sx={{ width: 80, height: 80 }} 
           variant="square" />
@@ -22,7 +21,7 @@ function UserInfo({ userData }) {
       <Grid
         item
         >
-        <Typography variant="h5">{userData.given_name}</Typography> 
+        <Typography variant="h5">{userData.given_name || userData.nickname}</Typography> 
         <Stack
           spacing={1}
           direction="row">

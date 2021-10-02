@@ -1,4 +1,5 @@
 name: Build and Deploy FinLearn
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions
 
 on:
   push:
@@ -30,6 +31,7 @@ jobs:
     - name: Build project
       run: npm run build
     
+      # https://github.com/actions/upload-artifact
     - name: Upload production build files
       uses: actions/upload-artifact@v2
       with:
@@ -40,7 +42,7 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
 
     steps:
     - name: Download artiface

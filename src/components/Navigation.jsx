@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect, Route } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation } from 'react-router-dom'
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -255,7 +254,7 @@ export function NavigationWrapper({component}) {
         createUserAcc(auth.user)
         setUser(auth.user)
       } else {
-        if (window.location.pathname != "/signin" && window.location.pathname != "/") {
+        if (window.location.pathname !== "/signin" && window.location.pathname !== "/") {
           window.location.href="signin"
         }
       }

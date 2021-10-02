@@ -64,6 +64,7 @@ function Landing() {
                   xs={12}
                   md={4}
                   item
+                  key={item.text}
                 >
                   <Container
                     sx={containerStyle}

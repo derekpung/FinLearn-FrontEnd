@@ -15,7 +15,7 @@ function Signin() {
     if (!authLoading && user) {
       window.location.href="/explore"
     }
-  }, [ user ])
+  }, [ user, authLoading ])
 
   return (
     <Page >

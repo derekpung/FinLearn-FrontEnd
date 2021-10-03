@@ -253,11 +253,12 @@ export function NavigationWrapper({component}) {
       if (auth.user) {  
         createUserAcc(auth.user)
         setUser(auth.user)
-      } else {
-        if (window.location.pathname !== "/signin" && window.location.pathname !== "/") {
-          window.location.href="signin"
-        }
-      }
+      } 
+      // else {
+        // if (window.location.pathname !== "/signin" && window.location.pathname !== "/") {
+        //   window.location.href="signin"
+        // }
+      // }
     }
     setAuthLoading(false)
   },[ auth, setUser, setAuthLoading ])

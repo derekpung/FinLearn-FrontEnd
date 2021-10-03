@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/FinLearn-FrontEnd/static/css/main.2ece9f9f.chunk.css",
-    "main.js": "/FinLearn-FrontEnd/static/js/main.2886e7a9.chunk.js",
-    "main.js.map": "/FinLearn-FrontEnd/static/js/main.2886e7a9.chunk.js.map",
+    "main.js": "/FinLearn-FrontEnd/static/js/main.3e4eddda.chunk.js",
+    "main.js.map": "/FinLearn-FrontEnd/static/js/main.3e4eddda.chunk.js.map",
     "runtime-main.js": "/FinLearn-FrontEnd/static/js/runtime-main.0b10b4e5.js",
     "runtime-main.js.map": "/FinLearn-FrontEnd/static/js/runtime-main.0b10b4e5.js.map",
-    "static/js/2.3042f0b1.chunk.js": "/FinLearn-FrontEnd/static/js/2.3042f0b1.chunk.js",
-    "static/js/2.3042f0b1.chunk.js.map": "/FinLearn-FrontEnd/static/js/2.3042f0b1.chunk.js.map",
+    "static/js/2.fbd58589.chunk.js": "/FinLearn-FrontEnd/static/js/2.fbd58589.chunk.js",
+    "static/js/2.fbd58589.chunk.js.map": "/FinLearn-FrontEnd/static/js/2.fbd58589.chunk.js.map",
     "index.html": "/FinLearn-FrontEnd/index.html",
     "static/css/main.2ece9f9f.chunk.css.map": "/FinLearn-FrontEnd/static/css/main.2ece9f9f.chunk.css.map",
-    "static/js/2.3042f0b1.chunk.js.LICENSE.txt": "/FinLearn-FrontEnd/static/js/2.3042f0b1.chunk.js.LICENSE.txt",
+    "static/js/2.fbd58589.chunk.js.LICENSE.txt": "/FinLearn-FrontEnd/static/js/2.fbd58589.chunk.js.LICENSE.txt",
     "static/media/FinLearn_Logo_ComingSoon.a158f0d8.png": "/FinLearn-FrontEnd/static/media/FinLearn_Logo_ComingSoon.a158f0d8.png",
     "static/media/FinLearn_Logo_Transparent.6a45fb38.png": "/FinLearn-FrontEnd/static/media/FinLearn_Logo_Transparent.6a45fb38.png"
   },
   "entrypoints": [
     "static/js/runtime-main.0b10b4e5.js",
-    "static/js/2.3042f0b1.chunk.js",
+    "static/js/2.fbd58589.chunk.js",
     "static/css/main.2ece9f9f.chunk.css",
-    "static/js/main.2886e7a9.chunk.js"
+    "static/js/main.3e4eddda.chunk.js"
   ]
 }

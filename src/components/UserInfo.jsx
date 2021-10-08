@@ -1,8 +1,11 @@
 import React from 'react';
 import { Avatar, Grid, Stack, Typography } from '@mui/material';
 import { FaCoins } from 'react-icons/fa'
+import Faucet from './Faucet.js'
+import LTEToken from '../artifacts/contracts/LTEToken.sol/LTEToken.json'
 
 function UserInfo({ userData }) {
+  const Token = LTEToken;
   return (
     <Grid
       container
@@ -26,7 +29,8 @@ function UserInfo({ userData }) {
           spacing={1}
           direction="row">
             <FaCoins size="2em"/>
-            <Typography variant="h6"> LTE Tokens: {userData.wallet || 0}</Typography>
+            {/* <Typography variant="h6"> LTE Tokens: {userData.wallet || 0}</Typography> */}
+            <Faucet  tokenContract={Token}/>
         </Stack>
       </Grid>
     </Grid>

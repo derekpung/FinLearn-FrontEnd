@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Page, { PageSection } from '@components/Page'
 import { Container, Box } from '@mui/material'
 import Logo from '@assets/images/FinLearn_Logo_Transparent.png'
@@ -11,11 +12,13 @@ function Signin() {
     justifyContent: 'center'
   }
   const {user, authLoading } = useAppContext()
+  const history = useHistory()
+
   useEffect(() => {
     if (!authLoading && user) {
-      window.location.href="/explore"
+      history.push('/explore')
     }
-  }, [ user, authLoading ])
+  }, [ user, authLoading, history ])
 
   return (
     <Page >

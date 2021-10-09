@@ -1,6 +1,6 @@
 import React from 'react';
 import queryString from 'query-string';
-import { useLocation } from 'react-router';
+import { useLocation, useHistory } from 'react-router-dom';
 import Page from '@components/Page';
 import { Button } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -13,6 +13,7 @@ function useQuery() {
 
 function Classroom() {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const history = useHistory()
   const query = useQuery()
 
   const handleMock = () => {
@@ -21,7 +22,7 @@ function Classroom() {
       completeTransaction(user.sub, query.id),
       updateWallet(user.sub, query.id)
     ]
-    ).finally(()=>{window.location.href="/profile"})
+    ).finally(()=>{history.push('/profile')})
   }
   
   if( !isLoading && isAuthenticated ) {

@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 
 const tokenAddress = "0x176216a856c7e4E9CB6E0Af38Fb382d7a115416a"
 
-const Faucet = (props) => {
+const Balance = (props) => {
 
   const [balance, setBalance] = useState()
   const [showBalance, setShowBalance] = useState(false)
@@ -40,4 +40,4 @@ const Faucet = (props) => {
     )
 }
 
-export default Faucet
+export default Balance

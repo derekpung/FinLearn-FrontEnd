@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { Avatar, Grid, Divider } from '@mui/material';
-import { useLocation } from 'react-router';
+import { useLocation, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import { getCourseById } from '@js/courses'
 import Loading from '@components/Loading'
@@ -42,18 +42,20 @@ const TempInstructor = () => (
 )
 
 const RenderCourse = ({ course }) => {
+  const history = useHistory()
   const gridSettings = {
     xs:12,
     sm:6,
   }
   const { user, authLoading } = useAppContext();
-
   const handleStartClick = () => {
-    console.log({userid: user.sub, courseid: course.id})
-    addTransaction(user.sub, course.id).finally(()=>{ window.location.href=`/explore/classroom?id=${course.id}`})
-    // .finally(
-    //   () => { window.location.href = `/explore/course/classroom?id=${course.id}` }
-    // )
+    if ( user ) {
+      addTransaction(user.sub, course.id).finally(()=>{ 
+        history.push(`/explore/classroom?id=${course.id}`)
+      })
+    } else {
+      history.push('/signin')
+    }
   }
   
   return (
@@ -100,14 +102,18 @@ function Course() {
   const [ isLoading, setIsLoading ] = useState(true)
   const [ course, setCourse ] = useState(null)
   const query = useQuery()
+  const history = useHistory()
 
   useEffect(
     () => { 
       isLoading && getCourseById(query.id, setCourse)
       .then(()=>{ setIsLoading(false) })
-      .catch((err)=>{ console.log(err); window.location.href = "/404" } )
+      .catch((err)=>{ 
+        console.log(err); 
+        history.push('/404');
+      })
     }
-  ,[ isLoading, query.id ])
+  ,[ isLoading, query.id, history ])
 
   return isLoading ? <Loading /> : <RenderCourse course={course} />
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Divider } from '@mui/material';
 import Page from '@components/Page';
 import ImageGrid from '@components/ImageGrid';
@@ -13,6 +14,7 @@ function Explore() {
   const [ isLoading, setIsLoading ] = useState(true)
   const [ topCourses, setTopCourses ] = useState([])
   const [ topMentors, setTopMentors ] = useState([])
+  const history = useHistory()
 
   const getDbData = async () => {
     try {
@@ -50,7 +52,7 @@ function Explore() {
     })
     : (
       event => {
-        window.location.href = `/explore/course?id=${course.id}`
+        history.push(`/explore/course?id=${course.id}`)
       }
     )
   )

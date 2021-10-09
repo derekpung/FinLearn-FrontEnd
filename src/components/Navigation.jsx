@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import MuiAppBar from '@mui/material/AppBar'
 import MuiDrawer from '@mui/material/Drawer'
@@ -110,7 +110,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const TopBar = ({ auth }) => (
+const TopBar = ({ auth, afterSignOut }) => (
   <Box sx={{ display: 'flex' }}>
     <SearchBar />
     <IconButton
@@ -120,7 +120,7 @@ const TopBar = ({ auth }) => (
       onClick={
         auth.isAuthenticated ?
         () => auth.logout({ returnTo: process.env.REACT_APP_BASE_URL })
-        : () => window.location.href="/signin"
+        : afterSignOut
       }
     >
       <HiOutlineLogout />
@@ -131,7 +131,11 @@ const TopBar = ({ auth }) => (
 const DeskTopBar = ({auth}) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const history = useHistory()
 
+  const afterSignOut = () => {
+    history.push('/signout')
+  }
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -198,7 +202,7 @@ const DeskTopBar = ({auth}) => {
               FINLEARN
             </Link>
           </Typography>
-          <TopBar auth={auth}/>
+          <TopBar auth={auth} afterSignOut={afterSignOut} />
     </Toolbar>
       </AppBar>
       {auth.isAuthenticated ? <DesktopDrawer /> : null}
@@ -242,26 +246,27 @@ const createUserAcc = async (user) => {
   
 export function NavigationWrapper({component}) {
   const location = useLocation()
+  const history = useHistory()
   const isMobile = useMediaQuery('(max-width: 600px)');
 
   const auth = useAuth0();
-  const { setUser, setAuthLoading } = useAppContext();
+  const { user, setUser, setAuthLoading } = useAppContext();
 
   useEffect(() => {
     setAuthLoading(true)
-    if (!auth.isLoading) {
+    if (!user && !auth.isLoading) {
       if (auth.user) {  
         createUserAcc(auth.user)
         setUser(auth.user)
       } 
-      // else {
-        // if (window.location.pathname !== "/signin" && window.location.pathname !== "/") {
-        //   window.location.href="signin"
-        // }
-      // }
+      else {
+        if (location.pathname!=='/signin' && location.pathname!=='/') {
+          history.push('/signin')
+        }
+      }
     }
     setAuthLoading(false)
-  },[ auth, setUser, setAuthLoading ])
+  },[ auth, user, setUser, setAuthLoading, history, location.pathname ])
   
 
   return (

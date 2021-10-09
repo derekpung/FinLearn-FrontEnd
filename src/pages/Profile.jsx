@@ -10,6 +10,8 @@ import Loading from '@components/Loading';
 import { useAppContext } from '@src/Context';
 import { getCompletedById } from '@js/transaction'
 import { getUserById } from '@js/user'
+import TokenSend from '../components/TokenSend.js'
+import LTEToken from '../artifacts/contracts/LTEToken.sol/LTEToken.json'
 
 function Profile() {
   const [ isLoading, setIsLoading ] = useState(true)
@@ -18,6 +20,8 @@ function Profile() {
   const [ dbUser, setDbUser ] = useState(null)
 
   const btnBehaviorGen = (label) => notImplemented
+
+  const Token = LTEToken;
 
   useEffect(() => {
     if (user && isLoading) {
@@ -38,6 +42,9 @@ function Profile() {
     <Page pageTitle="Profile" className="page" containertype="containerprofile">
       <PageSection>
         <UserInfo userData={{...user,...dbUser}} />
+      </PageSection>
+      <PageSection>
+        <TokenSend tokenContract={Token}/>
       </PageSection>
       <PageSection>
         <ButtonGrid 
